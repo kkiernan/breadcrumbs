@@ -1,0 +1,16 @@
+{
+    "name": "kkiernan/breadcrumbs",
+    "description": "Easy breadcrumb generation",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kelly Kiernan",
+            "email": "kelly@kellykiernan.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Kiernan\\Breadcrumbs": "src/"
+        }
+    }
+}
