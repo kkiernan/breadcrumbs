@@ -30,6 +30,6 @@ class ServiceProvider extends LaravelServiceProvider
 
         $this->publishes([
             __DIR__ . '/../../views' => base_path('resources/views/vendor/kkiernan')
-        ]);
+        ], 'kkiernan');
     }
 }

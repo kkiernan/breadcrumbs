@@ -1,18 +1,22 @@
-# Breadcrumb
+# Easy Breadcrumb Generation
 
 ## Install
 
 First, install the package via composer:
 
 ```
-composer require kkiernan/breadcrumb
+composer require kkiernan/breadcrumbs
 ```
 
-Then add the service provider to `config/app.php`.
+Then add the service provider and alias to `config/app.php`.
 
 ```php
 'providers' => [
     Kiernan\Breadcrumbs\ServiceProvider::class,
+],
+
+'aliases' => [
+    'Breadcrumbs' => \Kiernan\Breadcrumbs\Facade::class,
 ]
 ```
 
@@ -42,13 +46,13 @@ Breadcrumbs::addMany([
 The package contains a default Bootstrap view that you can use to display your breadcrumbs. Simply add the following to your layout:
 
 ```
-@include(kkiernan::breadcrumbs);
+@include('kkiernan::breadcrumbs');
 ```
 
 Publish this view to `resources/views/vendor/kkiernan` by running the artisan command below. You can then edit the view as desired.
 
 ```
-php artisan vendor:publish --provider=Kiernan\Breadcrumbs\ServiceProvider.php
+php artisan vendor:publish --tag=kkiernan
 ```
 
 ## Dynamic Crumbs

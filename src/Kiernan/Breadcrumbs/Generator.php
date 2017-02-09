@@ -51,7 +51,7 @@ class Generator
     {
         foreach ($crumbs as $crumb) {
             $text = isset($crumb[0]) ? $crumb[0] : '';
-            $url = isset($crumb[1]) ? $crumb[1] : '';
+            $url = isset($crumb[1]) ? $crumb[1] : null;
             $this->crumbs[] = $this->makeCrumb($text, $url);
         }
     }
