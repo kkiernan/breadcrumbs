@@ -1,5 +1,15 @@
 # Easy Breadcrumb Generation
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Install](#install)
+- [Usage](#usage)
+- [Dynamic Crumbs](#dynamic-crumbs)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Install
 
 First, install the package via composer:
@@ -8,7 +18,7 @@ First, install the package via composer:
 composer require kkiernan/breadcrumbs
 ```
 
-Then add the service provider and alias to `config/app.php`.
+If using Laravel, add the service provider and alias to `config/app.php`.
 
 ```php
 'providers' => [
@@ -22,19 +32,14 @@ Then add the service provider and alias to `config/app.php`.
 
 ## Usage
 
-In your controller, add breadcrumbs as needed before rendering the view.
+Add breadcrumbs as needed before rendering your view:
 
 ```php
-public function create()
-{
-    Breadcrumbs::add('Posts', action('PostsController@index'));
-    Breadcrumbs::add('New Post');
-
-    return view('posts.create');
-}
+Breadcrumbs::add('Posts', action('PostsController@index'));
+Breadcrumbs::add('New Post');
 ```
 
-You can also add many breadcrumbs at one time if you prefer:
+Add many breadcrumbs at once if you prefer:
 
 ```php
 Breadcrumbs::addMany([
@@ -43,13 +48,13 @@ Breadcrumbs::addMany([
 ]);
 ```
 
-The package contains a default Bootstrap view that you can use to display your breadcrumbs. Simply add the following to your layout:
+A Bootstrap partial is included to display your breadcrumbs. If using Laravel Blade, you can include the partial in your template:
 
 ```
 @include('kkiernan::breadcrumbs');
 ```
 
-Publish this view to `resources/views/vendor/kkiernan` by running the artisan command below. You can then edit the view as desired.
+If you'd like to edit the partial, publish it to `resources/views/vendor/kkiernan`:
 
 ```
 php artisan vendor:publish --tag=kkiernan
@@ -57,25 +62,23 @@ php artisan vendor:publish --tag=kkiernan
 
 ## Dynamic Crumbs
 
-You may also render breadcrumbs dynamically. This is helpful when there are multiple ways to arrive at a view. For example, imagine that both a list of posts and a dashboard link to a post detail view.
+Breadcrumbs can be added dynamically, which is helpful when multiple pages link to a particular page. For example, imagine that both a dashboard and a list of posts link to a post detail view. Consider the following Laravel-centric example in which the first breadcrumb will render as either "Dashboard" or "Posts" depending on the referring page.
 
 ```php
-// In your DashboardController@index method...
+// DashboardController@index...
 Breadcrumbs::put('posts', 'Dashboard', action('DashboardController@index'));
 ```
 
 ```php
-// In your PostsController@index method...
-Breadcrumbs::put('posts', 'Dashboard', action('DashboardController@index'));
+// PostsController@index...
+Breadcrumbs::put('posts', 'Posts', action('DashboardController@index'));
 ```
 
 ```php
-// In your PostsController@show method...
+// PostsController@show...
 Breadcrumbs::addDynamic('posts');
 Breadcrumbs::add($post->title);
 ```
-
-The breadcrumbs will now display as either "Dashboard / The Post Title" or "Posts / The Post Title". This functionality is also available as `Breadcrumbs::addIf('posts')` for situations where it reads more fluently (usually when the dynamic crumb is not in the first position).
 
 If you need to unset a dynamic crumb and prevent it from rendering, simply call the forget method:
 
