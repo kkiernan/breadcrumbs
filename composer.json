@@ -12,5 +12,8 @@
         "psr-0": {
             "Kiernan\\Breadcrumbs": "src/"
         }
+    },
+    "require": {
+        "phpunit/phpunit": "^5.7"
     }
 }
